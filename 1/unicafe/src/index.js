@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
@@ -9,8 +10,7 @@ const Header = ({ text }) => {
   );
 };
 
-
-const ButtonGroup = ({controls, values}) => {
+const ButtonGroup = ({ controls, values }) => {
   return (
     <div>
       <button onClick={() => controls.setGood(values.good + 1)}>Good</button>
@@ -50,6 +50,16 @@ const App = () => {
     average,
     positive,
   };
+  if (total === 0) {
+    return (
+      <div>
+        <Header text="Give Feedback" />
+        <ButtonGroup controls={controls} values={values} />
+        <Header text="Statistics" />
+        <p>No feedback given.</p>
+      </div>
+    );
+  }
   return (
     <div>
       <Header text="Give Feedback" />
