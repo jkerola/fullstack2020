@@ -13,22 +13,33 @@ const Header = ({ text }) => {
 const ButtonGroup = ({ controls, values }) => {
   return (
     <div>
-      <button onClick={() => controls.setGood(values.good + 1)}>Good</button>
-      <button onClick={() => controls.setNeutral(values.neutral + 1)}>Neutral</button>
-      <button onClick={() => controls.setBad(values.bad + 1)}>Bad</button>
+      <Button text="Good" incrementValue={() => controls.setGood(values.good + 1)} />
+      <Button text="Neutral" incrementValue={() => controls.setNeutral(values.neutral + 1)} />
+      <Button text="Bad" incrementValue={() => controls.setBad(values.bad + 1)} />
     </div>
+  );
+};
+
+const Button = ({text, incrementValue}) => {
+  return (
+    <button onClick={incrementValue}>{text}</button>
+  );
+};
+
+const StatisticLine = ({text, value, sign}) => {
+  return (
+    <p>{text} {value} {sign}</p>
   );
 };
 
 const Statistics = ({ values }) => {
   return (
     <div>
-      <p>Good {values.good}</p>
-      <p>Neutral {values.neutral}</p>
-      <p>Bad {values.bad}</p>
-      <p>Total {values.total}</p>
-      <p>Average {values.average}</p>
-      <p>Positive {values.positive} %</p>
+      <StatisticLine text="Good" value={values.good} />
+      <StatisticLine text="Neutral" value={values.neutral} />
+      <StatisticLine text="Bad" value={values.bad} />
+      <StatisticLine text="Average" value={values.average} />
+      <StatisticLine text="Positive" value={values.positive} sign="%" />
     </div>
   );
 };
