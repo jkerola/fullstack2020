@@ -1,5 +1,5 @@
-# Kurssitiedot
-Exercises 1.0 to 1.5
+# Unicafe
+Exercises 1.6 to 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
