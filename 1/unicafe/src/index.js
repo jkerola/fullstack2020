@@ -28,19 +28,28 @@ const Button = ({text, incrementValue}) => {
 
 const StatisticLine = ({text, value, sign}) => {
   return (
-    <p>{text} {value} {sign}</p>
+    <tr>
+      <td>
+        {text}
+      </td>
+      <td>
+        {value} {sign}
+      </td>
+    </tr>
   );
 };
 
 const Statistics = ({ values }) => {
   return (
-    <div>
-      <StatisticLine text="Good" value={values.good} />
-      <StatisticLine text="Neutral" value={values.neutral} />
-      <StatisticLine text="Bad" value={values.bad} />
-      <StatisticLine text="Average" value={values.average} />
-      <StatisticLine text="Positive" value={values.positive} sign="%" />
-    </div>
+    <table>
+      <tbody>
+        <StatisticLine text="Good" value={values.good} />
+        <StatisticLine text="Neutral" value={values.neutral} />
+        <StatisticLine text="Bad" value={values.bad} />
+        <StatisticLine text="Average" value={values.average} />
+        <StatisticLine text="Positive" value={values.positive} sign="%" />
+      </tbody>
+    </table>
   );
 };
 
