@@ -61,6 +61,8 @@ const Statistics = ({ values }) => {
     </table>
   );
 };
+const initialList = new Array(anecdotes.length).fill(0);
+let listPointer = initialList;
 const Quote = ({quoteControls}) => {
   const { selected, setSelected } = quoteControls;
   const random = () => {
@@ -71,21 +73,39 @@ const Quote = ({quoteControls}) => {
     }
     return index;
   };
+  const [votes, setVotes] = useState(0);
+  const voteQuote = () => {
+    const copy = [...listPointer];
+    copy[selected] += 1;
+    listPointer = copy;
+    const mostVotes = Math.max(...listPointer);
+    return setVotes(mostVotes);
+  };
   return (
     <div>
       <Header text="Inspirational Quote" />
       <p>&quot;{anecdotes[selected]}&quot;</p>
-      <button>Like</button>
+      <button onClick={voteQuote}>Like</button>
       <button onClick={() => setSelected(random())}>Next Quote</button>
+      <Popular votes={votes} />
+    </div>
+  );
+};
+const Popular = ({ votes }) => {
+  const index = listPointer.indexOf(votes);
+  return (
+    <div>
+      <h3>Most Popular Quote</h3>
+      &quot;{anecdotes[index]}&quot;
+      <br/> With {votes} votes.
     </div>
   );
 };
 const App = () => {
   // from https://fullstackopen.com/osa1/monimutkaisempi_tila_reactin_debuggaus
   // tallenna napit omaan tilaansa
-  const likes = new Array(anecdotes.length).fill(0);
   const [selected, setSelected] = useState(0);
-  const quoteControls = { setSelected, selected, likes };
+  const quoteControls = { setSelected, selected };
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
@@ -118,6 +138,7 @@ const App = () => {
       <ButtonGroup controls={controls} values={values} />
       <Header text="Statistics" />
       <Statistics values={values} />
+      <Quote quoteControls={quoteControls} />
     </div>
   );
 };
