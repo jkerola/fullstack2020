@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+// from https://fullstackopen.com/osa1/monimutkaisempi_tila_reactin_debuggaus#tehtavat-1-6-1-14
 const anecdotes = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -61,7 +62,6 @@ const Popular = ({ votes }) => {
 };
 const App = () => {
   // from https://fullstackopen.com/osa1/monimutkaisempi_tila_reactin_debuggaus
-  // tallenna napit omaan tilaansa
   const [selected, setSelected] = useState(0);
   const quoteControls = { setSelected, selected };
   return (
