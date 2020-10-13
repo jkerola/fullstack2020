@@ -12,28 +12,30 @@ const App = () => {
     Axios.get('https://restcountries.eu/rest/v2/all')
       .then(response => setCountries(response.data))
   }, [])
-  const filteredCountries = countries.filter(country => country.name.toLowerCase().includes(newFilter))
+  let filteredCountries = countries.filter(country =>
+    country.name.toLowerCase().includes(newFilter.toLowerCase())
+  )
   return (
     <div>
       <h3>RestCountries</h3>
       <FilterField handleFilterChange={handleFilterChange} newFilter={newFilter} />
-      <CountryList filteredCountries={filteredCountries} />
+      <CountryList filteredCountries={filteredCountries} setNewFilter={setNewFilter} />
     </div>
   )
 }
-const CountryList = ({ filteredCountries }) => {
+const CountryList = ({ filteredCountries, setNewFilter }) => {
   if (filteredCountries.length === 1) {
     const country = filteredCountries[0]
-    return(
+    return (
       <div>
         <h4>{country.name}</h4>
-        <br/>Capital city: {country.capital}
-        <br/>Population: {country.population}
+        <br />Capital city: {country.capital}
+        <br />Population: {country.population}
         <h5>Languages</h5>
         <ul>
           {country.languages.map(language => <li key={language.name}>{language.name}</li>)}
         </ul>
-        <img src={country.flag} alt="country flag" style={{width:400+'px', height: 'auto'}} />
+        <img src={country.flag} alt="country flag" style={{ width: 400 + 'px', height: 'auto' }} />
       </div>
     )
   } else if (filteredCountries.length < 10 && filteredCountries.length > 1) {
@@ -41,7 +43,7 @@ const CountryList = ({ filteredCountries }) => {
       <ul>
         {filteredCountries.map(country =>
           <p key={country.name}>
-            {country.name}
+            {country.name} <button onClick={() => setNewFilter(country.name)} >show</button>
           </p>)}
       </ul>
     )
