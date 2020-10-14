@@ -48,6 +48,16 @@ const App = () => {
       setNewNumber('')
     }
   }
+  const removePerson = (removedPerson) => {
+    const message = `Delete ${removedPerson.name}?`
+    if (window.confirm(message)) {
+      ContactService.removeContact(removedPerson.id)
+        .catch(error => {
+          console.log(error)
+        })
+      setPersons(persons.filter(person => person.id !== removedPerson.id))
+    }
+  }
   const handleFilterChange = (event) => { //if empty filterfield, show all contacts
     setNewFilter(event.target.value)
     if (event.target.value === ('')) {
@@ -64,7 +74,7 @@ const App = () => {
       <FilterForm newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <AddNewPersonForm formControls={formControls} />
       <h2>Numbers</h2>
-      <Contacts personsToShow={personsToShow} />
+      <Contacts personsToShow={personsToShow} removePerson={removePerson} />
     </div >
   )
 
@@ -90,20 +100,22 @@ const FilterForm = ({ newFilter, handleFilterChange }) => {
     </div>
   )
 }
-const Contacts = ({ personsToShow }) => {
+const Contacts = ({ personsToShow, removePerson }) => {
   return (
     <div>
       {personsToShow.map(person =>
-        <Person key={person.name} person={person} />
+        <Person key={person.name} person={person} removePerson={removePerson} />
       )}
     </div>
   )
 }
 
-const Person = ({ person }) => {
+const Person = ({ person, removePerson }) => {
   return (
     <p>
-      {person.name} {person.number}
+      {person.name} {person.number} <button onClick={() => removePerson(person)}>
+        remove
+      </button>
     </p>
   )
 }

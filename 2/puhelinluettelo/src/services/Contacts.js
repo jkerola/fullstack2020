@@ -7,8 +7,11 @@ const getContacts = () => {
 const createContact = personObject => {
   return Axios.post(url, personObject).then(response => response.data)
 }
-
+const removeContact = id => {
+  return Axios.delete(`${url}/${id}`).then(response => response.data)
+}
 export default {
   getContacts,
-  createContact
+  createContact,
+  removeContact
 }
