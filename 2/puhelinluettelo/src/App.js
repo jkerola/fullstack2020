@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import Axios from 'axios'
 
 // from example at https://fullstackopen.com/osa2/lomakkeiden_kasittely#tehtavat-2-6-2-10
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('')
   const [showAll, setShowAll] = useState(true)
   useEffect(() => {
-    axios.get('http://localhost:3001/persons')
+    Axios.get('http://localhost:3001/persons')
       .then(response => {
         setPersons(response.data)
       })
@@ -38,7 +38,11 @@ const App = () => {
         name: newName,
         number: newNumber
       }
-      setPersons(persons.concat(newPerson))
+      Axios.post(`http://localhost:3001/persons`, newPerson)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          console.log('created person', response.data)
+        })
       setNewName('')
       setNewNumber('')
     }
