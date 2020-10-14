@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Axios from 'axios'
+import ContactService from './services/Contacts'
 
 // from example at https://fullstackopen.com/osa2/lomakkeiden_kasittely#tehtavat-2-6-2-10
 const App = () => {
@@ -9,9 +9,9 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('')
   const [showAll, setShowAll] = useState(true)
   useEffect(() => {
-    Axios.get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    ContactService.getContacts()
+      .then(contacts => {
+        setPersons(contacts)
       })
   }, [])
   const personsToShow = showAll // filter names that contain substring newFilter
@@ -38,10 +38,11 @@ const App = () => {
         name: newName,
         number: newNumber
       }
-      Axios.post(`http://localhost:3001/persons`, newPerson)
-        .then(response => {
-          setPersons(persons.concat(response.data))
-          console.log('created person', response.data)
+      ContactService.createContact(newPerson)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+        }).catch(error => {
+          console.log(error)
         })
       setNewName('')
       setNewNumber('')
@@ -74,7 +75,7 @@ const AddNewPersonForm = ({ formControls }) => {
       <legend><h3>Add a new contact</h3></legend>
       <div>
         name: <input value={formControls.newName} onChange={formControls.handleNameChange} /><br />
-          number: <input value={formControls.newNumber} onChange={formControls.handleNumberChange} />
+        number: <input value={formControls.newNumber} onChange={formControls.handleNumberChange} />
       </div>
       <div>
         <button type="submit">add</button>
