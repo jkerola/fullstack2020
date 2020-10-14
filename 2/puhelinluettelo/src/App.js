@@ -26,14 +26,20 @@ const App = () => {
   const addNewPerson = (event) => {
     event.preventDefault()
     const names = persons.map(person => person.name.toLowerCase())
-    const numbers = persons.map(person => person.number)
-    if (names.includes(newName.toLowerCase()) || numbers.includes(newNumber)) {
-      window.alert(`${names.includes(newName.toLowerCase()) //checks if name or number is in registry
-        ? newName
-        : newNumber} has already been added to the phonebook!`)
-      setNewName('')
-      setNewNumber('')
-    } else { //creates a new person
+    if (names.includes(newName.toLowerCase())) {
+      const message = `${newName} is already in you phonebook. Update contact number?`
+      if (window.confirm(message)) {
+        const oldPerson = persons
+          .find(person => person.name.toLowerCase() === newName.toLowerCase())
+        const updatedPerson = { ...oldPerson, number: newNumber }
+        ContactService.updateContact(oldPerson.id, updatedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
+          })
+        setNewName('')
+        setNewNumber('')
+      }
+    } else if (newName !== "" && newNumber !== "") { //creates a new person
       const newPerson = {
         name: newName,
         number: newNumber
@@ -46,6 +52,8 @@ const App = () => {
         })
       setNewName('')
       setNewNumber('')
+    } else {
+      window.alert('Contact name and number required!')
     }
   }
   const removePerson = (removedPerson) => {

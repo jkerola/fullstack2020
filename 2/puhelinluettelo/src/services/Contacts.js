@@ -10,8 +10,12 @@ const createContact = personObject => {
 const removeContact = id => {
   return Axios.delete(`${url}/${id}`).then(response => response.data)
 }
+const updateContact = (id, personObject) => {
+  return Axios.put(`${url}/${id}`, personObject).then(response => response.data)
+}
 export default {
   getContacts,
   createContact,
-  removeContact
+  removeContact,
+  updateContact
 }
