@@ -12,13 +12,20 @@ code {
     monospace;
 }
 
-.system-message {
-  /*
-  from example at 
-  https://fullstackopen.com/osa2/tyylien_lisaaminen_react_sovellukseen#parempi-virheilmoitus
-  */
+/* from example at 
+  https://fullstackopen.com/osa2/tyylien_lisaaminen_react_sovellukseen#parempi-virheilmoitus */
+.success {
   color: green;
   background: lightgreen;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.error {
+  color: darkred;
+  background: red;
   font-size: 20px;
   border-style: solid;
   border-radius: 5px;

@@ -8,7 +8,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
   const [showAll, setShowAll] = useState(true)
-  const [systemMessage, setSystemMessage] = useState(null)
+  const [systemMessage, setSystemMessage] = useState(['success', null])
   useEffect(() => {
     ContactService.getContacts()
       .then(contacts => {
@@ -36,9 +36,16 @@ const App = () => {
         ContactService.updateContact(oldPerson.id, updatedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
-            setSystemMessage(`Updated ${returnedPerson.name}!`)
+            setSystemMessage(['success', `Updated ${returnedPerson.name}!`])
             setTimeout(() => {
-              setSystemMessage(null)
+              setSystemMessage(['success', null])
+            }, 2000)
+          }).catch(error => {
+            setPersons(persons.filter(person => person.id !== updatedPerson.id))
+            const message = `Contact ${updatedPerson.name} has already been removed from the server.`
+            setSystemMessage(['error', message])
+            setTimeout(() => {
+              setSystemMessage(['success', null])
             }, 2000)
           })
         setNewName('')
@@ -52,9 +59,9 @@ const App = () => {
       ContactService.createContact(newPerson)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
-          setSystemMessage(`Added ${returnedPerson.name}!`)
+          setSystemMessage(['success', `Added ${returnedPerson.name}!`])
           setTimeout(() => {
-            setSystemMessage(null)
+            setSystemMessage(['success', null])
           }, 2000)
         }).catch(error => {
           console.log(error)
@@ -73,9 +80,9 @@ const App = () => {
         .catch(error => {
           console.log(error)
         })
-      setSystemMessage(`Deleted ${removedPerson.name}`)
+      setSystemMessage(['success', `Deleted ${removedPerson.name}`])
       setTimeout(() => {
-        setSystemMessage(null)
+        setSystemMessage(['success', null])
       }, 2000)
       setPersons(persons.filter(person => person.id !== removedPerson.id))
     }
@@ -145,13 +152,14 @@ const Person = ({ person, removePerson }) => {
 // from example at
 // https://fullstackopen.com/osa2/tyylien_lisaaminen_react_sovellukseen#parempi-virheilmoitus
 const Notification = ({ message }) => {
-  if (message === null) {
+  const [type, msg] = message
+  if (msg === null) {
     return null
   }
 
   return (
-    <div className="system-message">
-      {message}
+    <div className={type}>
+      {msg}
     </div>
   )
 }
