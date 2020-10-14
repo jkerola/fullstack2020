@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.system-message {
+  /*
+  from example at 
+  https://fullstackopen.com/osa2/tyylien_lisaaminen_react_sovellukseen#parempi-virheilmoitus
+  */
+  color: green;
+  background: lightgreen;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}

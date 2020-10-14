@@ -8,6 +8,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
   const [showAll, setShowAll] = useState(true)
+  const [systemMessage, setSystemMessage] = useState(null)
   useEffect(() => {
     ContactService.getContacts()
       .then(contacts => {
@@ -35,6 +36,10 @@ const App = () => {
         ContactService.updateContact(oldPerson.id, updatedPerson)
           .then(returnedPerson => {
             setPersons(persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson))
+            setSystemMessage(`Updated ${returnedPerson.name}!`)
+            setTimeout(() => {
+              setSystemMessage(null)
+            }, 2000)
           })
         setNewName('')
         setNewNumber('')
@@ -47,9 +52,14 @@ const App = () => {
       ContactService.createContact(newPerson)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setSystemMessage(`Added ${returnedPerson.name}!`)
+          setTimeout(() => {
+            setSystemMessage(null)
+          }, 2000)
         }).catch(error => {
           console.log(error)
         })
+
       setNewName('')
       setNewNumber('')
     } else {
@@ -63,6 +73,10 @@ const App = () => {
         .catch(error => {
           console.log(error)
         })
+      setSystemMessage(`Deleted ${removedPerson.name}`)
+      setTimeout(() => {
+        setSystemMessage(null)
+      }, 2000)
       setPersons(persons.filter(person => person.id !== removedPerson.id))
     }
   }
@@ -79,6 +93,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={systemMessage} />
       <FilterForm newFilter={newFilter} handleFilterChange={handleFilterChange} />
       <AddNewPersonForm formControls={formControls} />
       <h2>Numbers</h2>
@@ -127,5 +142,17 @@ const Person = ({ person, removePerson }) => {
     </p>
   )
 }
+// from example at
+// https://fullstackopen.com/osa2/tyylien_lisaaminen_react_sovellukseen#parempi-virheilmoitus
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
 
+  return (
+    <div className="system-message">
+      {message}
+    </div>
+  )
+}
 export default App
