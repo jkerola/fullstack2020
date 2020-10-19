@@ -1,0 +1,12 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+    "title": "D&D Fridays",
+    "author": "Gary Gygax",
+    "url": "tomb-of-horrors.blogspot.com",
+    "likes": 23
+}
+
+
+
