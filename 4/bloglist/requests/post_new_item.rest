@@ -2,11 +2,25 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title": "D&D Fridays",
-    "author": "Gary Gygax",
-    "url": "tomb-of-horrors.blogspot.com",
-    "likes": 23
+    "title": "SF ENthusiasts",
+    "author": "M. Night Shyamalan",
+    "url": "r/streetfighter",
+    "likes": 13
 }
 
+### POST INVALID ITEM
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
 
+{
+}
 
+### POST INVALID ITEM, MISSING PARAMS
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+    "title": "SF ENthusiasts",
+    "author": "M. Night Shyamalan",
+    "url": "r/streetfighter"
+}
