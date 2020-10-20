@@ -1,27 +1,27 @@
 const listHelper = require('../utils/list_helper')
 
 const blogItem = {
-  title: "D&D Fridays",
-  author: "Gary Gygax",
-  url: "tomb-of-horrors.blogspot.com",
+  title: 'D&D Fridays',
+  author: 'Gary Gygax',
+  url: 'tomb-of-horrors.blogspot.com',
   likes: 23,
-  id: "5f8d80dd71d291e839736a80"
+  id: '5f8d80dd71d291e839736a80'
 }
 const blogList = [
   blogItem,
   {
-    title: "React Fans",
-    author: "Zuckerberg",
-    url: "marks-amazing-blog.blogspot.com",
+    title: 'React Fans',
+    author: 'Zuckerberg',
+    url: 'marks-amazing-blog.blogspot.com',
     likes: 0,
-    id: "5f8d800f71d291e839736a7f"
+    id: '5f8d800f71d291e839736a7f'
   },
   {
-    title: "Meritoppila löytökiekot",
-    author: "Andre 3000",
-    url: "meritoppila-discgolf.blogspot.com",
+    title: 'Meritoppila löytökiekot',
+    author: 'Andre 3000',
+    url: 'meritoppila-discgolf.blogspot.com',
     likes: 702,
-    id: "5f8d9a33c094140feafc3f02"
+    id: '5f8d9a33c094140feafc3f02'
   }]
 
 // from example at
@@ -68,8 +68,8 @@ describe('best liked blog', () => {
     expect(result).toEqual(blogList[2])
   })
   test('of multiple winners is correct', () => {
-    //expect first item of equal values
-    const modBlogItem = {...blogItem, likes: 702}
+    // expect first item of equal values
+    const modBlogItem = { ...blogItem, likes: 702 }
     const doubledList = [...blogList, modBlogItem]
     const result = listHelper.favoriteBlog(doubledList)
     expect(result).toEqual(blogList[2]) // first of two items of equal value
@@ -77,5 +77,28 @@ describe('best liked blog', () => {
     const secondResult = listHelper.favoriteBlog(tripledList)
     expect(secondResult).toEqual(modBlogItem) // first of three items of equal value
   })
-  
+})
+
+describe('author of the most blogs', () => {
+  test('of empty list of blogs equals null', () => {
+    const result = listHelper.mostBlogs([])
+    expect(result).toBe(null)
+  })
+  test('of list of one blog is the author of that blog', () => {
+    const result = listHelper.mostBlogs([blogItem])
+    const author = { author: blogItem.author, blogs: 1 }
+    expect(result).toEqual(author)
+  })
+  test('of multiple blogs is correct', () => {
+    const doubledList = [...blogList, blogItem]
+    const result = listHelper.mostBlogs(doubledList)
+    const author = { author: blogItem.author, blogs: 2 }
+    expect(result).toEqual(author)
+  })
+  test('of multiple top authors returns first author', () => {
+    const moddedList = [...blogList, blogList[1], blogList[2]]
+    const result = listHelper.mostBlogs(moddedList)
+    const author = { author: blogList[1].author, blogs: 2 }
+    expect(result).toEqual(author) // first author in list in case of tie
+  })
 })
