@@ -4,6 +4,7 @@ const dummy = (list) => {
   return (1)
 }
 const totalLikes = (list) => {
+  // calculate total number of likes across all blogs
   if (list.length === 0) {
     return 0
   } else {
@@ -11,6 +12,7 @@ const totalLikes = (list) => {
   }
 }
 const favoriteBlog = (list) => {
+  // find the most liked blog
   if (list.length === 0) {
     return null
   } else {
@@ -19,6 +21,7 @@ const favoriteBlog = (list) => {
   }
 }
 const mostBlogs = (list) => {
+  // find the author with the most blogs
   if (list.length === 0) {
     return null
   } else {
@@ -29,10 +32,31 @@ const mostBlogs = (list) => {
     return { author: topAuthor, blogs: authorList[topAuthor] }
   }
 }
+const mostLikes = (list) => {
+  // find the author with the most likes
+  if (list.length === 0) {
+    return null
+  } else {
+    const authorList = list.map(blog => ({ name: blog.author, likes: blog.likes }))
+    const combinedList = {}
+    authorList.forEach(author => {
+      if (combinedList[author.name]) {
+        combinedList[author.name] += author.likes
+      } else {
+        combinedList[author.name] = author.likes
+      }
+    })
+    const topAuthor = Object.keys(combinedList).reduce((max, next) => {
+      return combinedList[max] >= combinedList[next] ? max : next
+    })
+    return { author: topAuthor, likes: combinedList[topAuthor] }
+  }
+}
 
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }

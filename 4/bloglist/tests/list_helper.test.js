@@ -1,13 +1,13 @@
 const listHelper = require('../utils/list_helper')
 
-const blogItem = {
+const blogItem = { // single blog entry
   title: 'D&D Fridays',
   author: 'Gary Gygax',
   url: 'tomb-of-horrors.blogspot.com',
   likes: 23,
   id: '5f8d80dd71d291e839736a80'
 }
-const blogList = [
+const blogList = [ // list of unique blog items
   blogItem,
   {
     title: 'React Fans',
@@ -32,7 +32,7 @@ test('dummy returns one', () => {
   const result = listHelper.dummy(blogs)
   expect(result).toBe(1)
 })
-
+// totalLikes() tests
 describe('total likes', () => {
   test('of empty list is zero', () => {
     const list = []
@@ -53,7 +53,7 @@ describe('total likes', () => {
     expect(result).toBe(total)
   })
 })
-
+// favoriteBlog() tests
 describe('best liked blog', () => {
   test('of empty list equals null', () => {
     const result = listHelper.favoriteBlog([])
@@ -78,7 +78,7 @@ describe('best liked blog', () => {
     expect(secondResult).toEqual(modBlogItem) // first of three items of equal value
   })
 })
-
+// mostBlogs() tests
 describe('author of the most blogs', () => {
   test('of empty list of blogs equals null', () => {
     const result = listHelper.mostBlogs([])
@@ -100,5 +100,33 @@ describe('author of the most blogs', () => {
     const result = listHelper.mostBlogs(moddedList)
     const author = { author: blogList[1].author, blogs: 2 }
     expect(result).toEqual(author) // first author in list in case of tie
+  })
+})
+// mostLikes() tests
+describe('most liked author', () => {
+  test('of empty list is null', () => {
+    const result = listHelper.mostLikes([])
+    expect(result).toBe(null)
+  })
+  test('of list of one blog is the author', () => {
+    const result = listHelper.mostLikes([blogItem])
+    const author = { author: blogItem.author, likes: blogItem.likes }
+    expect(result).toEqual(author)
+  })
+  test('of multiple blogs is correct', () => {
+    const result = listHelper.mostLikes(blogList)
+    const author = { author: blogList[2].author, likes: blogList[2].likes }
+    expect(result).toEqual(author)
+  })
+  test('of multiple tying authors is correct', () => {
+    const moddedlist = [...blogList, { ...blogItem, likes: 679 }]
+    const result = listHelper.mostLikes(moddedlist)
+    const author = { author: blogList[0].author, likes: 702 } // hard coded value for this test
+    expect(result).toEqual(author) // first author on tying on list
+    const secondList = [...blogList]
+    secondList[1].likes = 702
+    const secondResult = listHelper.mostLikes(secondList)
+    const secondAuthor = { author: blogList[1].author, likes: blogList[1].likes }
+    expect(secondResult).toEqual(secondAuthor) // first author on tying list
   })
 })
