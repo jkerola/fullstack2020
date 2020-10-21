@@ -26,6 +26,12 @@ const initialBlogs = [
     likes: 202
   }
 ]
+const blogItem = {
+  title: 'Test Blog Item',
+  author: 'Janne Kerola',
+  url: 'None',
+  likes: 1
+}
 
 // from example at
 // https://fullstackopen.com/osa4/backendin_testaaminen#lisaa-testeja-ja-backendin-refaktorointia
@@ -50,6 +56,7 @@ const getBlogs = async () => {
 
 module.exports = {
   initialBlogs,
+  blogItem,
   nonExistingId,
   getBlogs
 }

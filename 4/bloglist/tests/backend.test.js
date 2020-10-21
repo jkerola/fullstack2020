@@ -37,6 +37,20 @@ describe('object', () => {
     expect(content[0]._id).not.toBeDefined() // test _id does not
   })
 })
+describe('post', () => {
+  test('create new blog item', async () => {
+    const newBlog = helper.blogItem
+    await api
+      .post('/api/blogs')
+      .send(newBlog) // sends a javascript object, not raw JSON
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+    const response = await api.get('/api/blogs')
+    const content = response.body.map(blogs => blogs.title) // from the example above
+    expect(response.body.length).toBe(helper.initialBlogs.length + 1)
+    expect(content).toContain(newBlog.title) // check list of titles contains new blog title
+  })
+})
 
 afterAll(() => {
   mongoose.connection.close()
