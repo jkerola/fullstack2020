@@ -98,13 +98,40 @@ describe('single', () => {
     expect(ids).not.toContain(blogId) // deleted id should not be in the updated list
     expect(updatedResponse.body.length).toBe(response.body.length - 1)
   })
-  test('view nonexisting item', async () => {
+  test('view nonexisting item returns 404', async () => {
     await api.get(`/api/blogs/${helper.fakeId}`)
       .expect(404)
   })
-  test('delete nonexisting item', async () => {
+  test('delete nonexisting item returns 204', async () => {
     await api.delete(`/api/blogs/${helper.fakeId}`)
       .expect(204)
+  })
+})
+describe('update', () => {
+  test('update single item', async () => {
+    const newBlog = helper.blogItem
+    const response = await api.get('/api/blogs')
+    const ids = response.body.map(blog => blog.id)
+    await api.put(`/api/blogs/${ids[0]}`)
+      .send(newBlog)
+      .expect(200)
+    const updatedBlogs = await api.get('/api/blogs')
+    const titles = updatedBlogs.body.map(blog => blog.title)
+    expect(titles).toContain(newBlog.title)
+  })
+  test('update missing item returns 404', async () => {
+    const newBlog = helper.blogItem
+    await api.put(`/api/blogs/${helper.fakeId}`)
+      .send(newBlog)
+      .expect(404)
+  })
+  test('update with missing attributes returns 400', async () => {
+    const newBlog = helper.blogMissingAttributes
+    const response = await api.get('/api/blogs')
+    const ids = response.body.map(blog => blog.id)
+    await api.put(`/api/blogs/${ids[0]}`)
+      .send(newBlog)
+      .expect(400)
   })
 })
 
