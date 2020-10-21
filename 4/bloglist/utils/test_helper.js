@@ -40,6 +40,7 @@ const blogWithNoLikes = {
 const blogMissingAttributes = {
   likes: 1
 }
+const fakeId = '5f8d800f71d291e839736a7f'
 
 // from example at
 // https://fullstackopen.com/osa4/backendin_testaaminen#lisaa-testeja-ja-backendin-refaktorointia
@@ -67,6 +68,7 @@ module.exports = {
   blogItem,
   blogWithNoLikes,
   blogMissingAttributes,
+  fakeId,
   nonExistingId,
   getBlogs
 }

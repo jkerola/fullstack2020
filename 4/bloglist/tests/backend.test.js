@@ -80,6 +80,33 @@ describe('post', () => {
       .expect(400)
   })
 })
+describe('single', () => {
+  test('view single item', async () => {
+    const response = await api.get('/api/blogs')
+    const blogId = response.body[0].id
+    await api.get(`/api/blogs/${blogId}`)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  })
+  test('delete single item', async () => {
+    const response = await api.get('/api/blogs')
+    const blogId = response.body[0].id
+    await api.delete(`/api/blogs/${blogId}`)
+      .expect(202)
+    const updatedResponse = await api.get('/api/blogs')
+    const ids = updatedResponse.body.map(blog => blog.id)
+    expect(ids).not.toContain(blogId) // deleted id should not be in the updated list
+    expect(updatedResponse.body.length).toBe(response.body.length - 1)
+  })
+  test('view nonexisting item', async () => {
+    await api.get(`/api/blogs/${helper.fakeId}`)
+      .expect(404)
+  })
+  test('delete nonexisting item', async () => {
+    await api.delete(`/api/blogs/${helper.fakeId}`)
+      .expect(204)
+  })
+})
 
 afterAll(() => {
   mongoose.connection.close()
