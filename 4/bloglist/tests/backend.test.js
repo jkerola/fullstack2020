@@ -50,6 +50,18 @@ describe('post', () => {
     expect(response.body.length).toBe(helper.initialBlogs.length + 1)
     expect(content).toContain(newBlog.title) // check list of titles contains new blog title
   })
+  test('without "likes" attribute, defaults to 0', async () => {
+    const newBlog = helper.blogWithNoLikes // object has no attribute at all
+    let response = await api
+      .post('/api/blogs')
+      .send(newBlog)
+    expect(response.body.likes).toBe(0)
+    const secondBlog = { ...newBlog, likes: undefined } // attribute exists, but undefined
+    response = await api
+      .post('/api/blogs')
+      .send(secondBlog)
+    expect(response.body.likes).toBe(0)
+  })
 })
 
 afterAll(() => {

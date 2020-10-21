@@ -32,6 +32,11 @@ const blogItem = {
   url: 'None',
   likes: 1
 }
+const blogWithNoLikes = {
+  title: 'Blog Missing Likes',
+  author: 'Janne Kerola',
+  url: 'None'
+}
 
 // from example at
 // https://fullstackopen.com/osa4/backendin_testaaminen#lisaa-testeja-ja-backendin-refaktorointia
@@ -57,6 +62,7 @@ const getBlogs = async () => {
 module.exports = {
   initialBlogs,
   blogItem,
+  blogWithNoLikes,
   nonExistingId,
   getBlogs
 }

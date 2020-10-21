@@ -4,7 +4,7 @@ const blogSchema = mongoose.Schema({
   title: { type: String, required: true },
   author: { type: String, required: true },
   url: { type: String, required: true },
-  likes: { type: Number, required: true }
+  likes: { type: Number, required: false, default: 0 }
 })
 // from example material at
 // https://fullstackopen.com/osa4/sovelluksen_rakenne_ja_testauksen_alkeet#sovelluksen-rakenne
