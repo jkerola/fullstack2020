@@ -62,6 +62,23 @@ describe('post', () => {
       .send(secondBlog)
     expect(response.body.likes).toBe(0)
   })
+  test('missing required attributes returns 400', async () => {
+    const newBlog = helper.blogMissingAttributes // missing both title, url
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+    const titledBlog = { ...newBlog, title: 'test title' } // missing url
+    await api
+      .post('/api/blogs')
+      .send(titledBlog)
+      .expect(400)
+    const urledBlog = { ...newBlog, url: 'test url' } // missing title
+    await api
+      .post('/api/blogs')
+      .send(urledBlog)
+      .expect(400)
+  })
 })
 
 afterAll(() => {

@@ -37,6 +37,9 @@ const blogWithNoLikes = {
   author: 'Janne Kerola',
   url: 'None'
 }
+const blogMissingAttributes = {
+  likes: 1
+}
 
 // from example at
 // https://fullstackopen.com/osa4/backendin_testaaminen#lisaa-testeja-ja-backendin-refaktorointia
@@ -63,6 +66,7 @@ module.exports = {
   initialBlogs,
   blogItem,
   blogWithNoLikes,
+  blogMissingAttributes,
   nonExistingId,
   getBlogs
 }
