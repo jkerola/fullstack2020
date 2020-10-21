@@ -29,6 +29,14 @@ describe('general', () => {
     expect(content.length).toBe(helper.initialBlogs.length)
   })
 })
+describe('object', () => {
+  test('contains field "id"', async () => {
+    const response = await api.get('/api/blogs')
+    const content = response.body
+    expect(content[0].id).toBeDefined() // test id exists
+    expect(content[0]._id).not.toBeDefined() // test _id does not
+  })
+})
 
 afterAll(() => {
   mongoose.connection.close()
