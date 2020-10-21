@@ -4,8 +4,9 @@
   "description": "fullstackopen2020 part 4 exercises",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose",
-    "dev": "nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "dev": "NODE_ENV=development nodemon index.js",
     "lint": "eslint ."
   },
   "author": "Janne Kerola",
@@ -18,12 +19,14 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^26.6.0",
-    "nodemon": "^2.0.5"
+    "nodemon": "^2.0.5",
+    "supertest": "^5.0.0"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "lodash": "^4.17.20",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0"

@@ -17,7 +17,9 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
   })
 
 app.use(express.json())
-app.use(logger.morgan(logger.customStyle))
+if (process.env.NODE_ENV !== 'test') {
+  app.use(logger.morgan(logger.customStyle))
+}
 app.use(cors())
 app.use('/api/blogs', blogRouter)
 app.use(middleware.errorHandler)

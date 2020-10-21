@@ -13,7 +13,9 @@ const customStyle = ':method :url :status :res[content-length] - :response-time 
 // from example at
 // https://fullstackopen.com/osa4/sovelluksen_rakenne_ja_testauksen_alkeet#sovelluksen-rakenne
 const info = (...params) => {
-  console.log(...params)
+  if (process.env.NODE_ENV !== 'test') {
+    console.log(...params)
+  }
 }
 
 const error = (...params) => {
