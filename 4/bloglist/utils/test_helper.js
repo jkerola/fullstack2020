@@ -1,5 +1,43 @@
 const Blog = require('../models/blog')
+const User = require('../models/user')
+// GENERAL TESTING ASSISTS
+const fakeId = '5f8d800f71d291e839736a7f'
 
+// USER TESTING ASSISTS
+const initialUsers = [
+  {
+    username: 'testuser',
+    password: 'password'
+  },
+  {
+    username: 'salimagick',
+    name: 'Salim Malick',
+    password: 'trianonlover'
+  }
+]
+const userItem = {
+  username: 'monopolyman',
+  password: 'gotojail'
+}
+const userMissingPassword = {
+  username: 'nopassword',
+  name: 'tommy no-pass'
+}
+const userMissingName = {
+  name: 'tommy no-name',
+  password: 'forgetful'
+}
+const userShortName = {
+  username: 'ed',
+  name: 'eddie',
+  password: 'culdesac'
+}
+const userShortPass = {
+  username: 'HabaneroJim',
+  name: 'Jimbo',
+  password: 'a'
+}
+// BLOG TESTING ASSISTS
 const initialBlogs = [
   {
     title: 'Emperor Penguins in Madagascar',
@@ -40,7 +78,6 @@ const blogWithNoLikes = {
 const blogMissingAttributes = {
   likes: 1
 }
-const fakeId = '5f8d800f71d291e839736a7f'
 
 // from example at
 // https://fullstackopen.com/osa4/backendin_testaaminen#lisaa-testeja-ja-backendin-refaktorointia
@@ -62,13 +99,25 @@ const getBlogs = async () => {
   const blogs = await Blog.find({})
   return blogs.map(blog => blog.toJSON())
 }
-
+const getUsers = async () => {
+  const users = await User.find({})
+  return users.map(user => user.toJSON())
+}
 module.exports = {
+  fakeId,
+  // user testing variables
+  initialUsers,
+  userItem,
+  userMissingName,
+  userMissingPassword,
+  userShortName,
+  userShortPass,
+  getUsers,
+  // blog testing variables
   initialBlogs,
   blogItem,
   blogWithNoLikes,
   blogMissingAttributes,
-  fakeId,
   nonExistingId,
   getBlogs
 }
