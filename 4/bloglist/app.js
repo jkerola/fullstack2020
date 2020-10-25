@@ -22,6 +22,7 @@ app.use(express.json())
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger.morgan(logger.customStyle))
 }
+app.use(middleware.tokenHandler)
 app.use(cors())
 app.use('/api/blogs', blogRouter)
 app.use('/api/users', userRouter)

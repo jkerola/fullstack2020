@@ -3,9 +3,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlZ
 Content-Type: application/json
 
 {
-    "title": "second test blog",
+    "title": "third test blog",
     "url": "test.com",
-    "likes": 110
+    "likes": 120
 }
 
 ### INVALID TOKEN
