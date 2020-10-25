@@ -1,10 +1,13 @@
 require('express-async-errors')
 const blogRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 // GET ROUTES
 blogRouter.get('/', async (request, response) => { // GET ALL ITEMS
-  const blogs = await Blog.find({})
+  const blogs = await Blog
+    .find({})
+    .populate('author', { username: 1, name: 1 })
   response.json(blogs.map(blog => blog.toJSON()))
 })
 
@@ -20,7 +23,13 @@ blogRouter.get('/:id', async (request, response) => { // GET SINGLE ITEM
 // POST ROUTES
 blogRouter.post('/', async (request, response) => { // POST NEW ITEM
   const blog = new Blog(request.body)
+  const defaultUser = await User.findOne({ username: 'defaultuser' })
+  if (!blog.author) {
+    blog.author = defaultUser.id
+  }
   const returnedBlog = await blog.save()
+  defaultUser.blogs = defaultUser.blogs.concat(returnedBlog.id)
+  await defaultUser.save()
   response.status(201).json(returnedBlog.toJSON())
 })
 

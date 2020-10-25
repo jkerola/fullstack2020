@@ -2,9 +2,12 @@ const mongoose = require('mongoose')
 
 const blogSchema = mongoose.Schema({
   title: { type: String, required: true },
-  author: { type: String, required: false, default: 'Unknown' },
   url: { type: String, required: true },
-  likes: { type: Number, required: false, default: 0 }
+  likes: { type: Number, required: false, default: 0 },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 // from example material at
 // https://fullstackopen.com/osa4/sovelluksen_rakenne_ja_testauksen_alkeet#sovelluksen-rakenne

@@ -2,10 +2,9 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title": "SF ENthusiasts",
-    "author": "M. Night Shyamalan",
-    "url": "r/streetfighter",
-    "likes": 13
+    "title": "test blog title",
+    "url": "test.com",
+    "likes": 100
 }
 
 ### POST INVALID ITEM
