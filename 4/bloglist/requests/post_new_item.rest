@@ -1,14 +1,37 @@
 POST http://localhost:3001/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlZmF1bHR1c2VyIiwiaWQiOiI1Zjk1NzdhMjQ1ZjNjNTNiNzkzZmMxNjUiLCJpYXQiOjE2MDM2MzQzNzJ9.X7zaGrAMAHRQDb6AKeeaXKk623q9AiBmKMkbpuSEjgo
 Content-Type: application/json
 
 {
-    "title": "test blog title",
+    "title": "second test blog",
     "url": "test.com",
-    "likes": 100
+    "likes": 110
+}
+
+### INVALID TOKEN
+POST http://localhost:3001/api/blogs
+Authorization: Bearer XyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlZmF1bHR1c2VyIiwiaWQiOiI1Zjk1NzdhMjQ1ZjNjNTNiNzkzZmMxNjUiLCJpYXQiOjE2MDM2MzQzNzJ9.X7zaGrAMAHRQDb6AKeeaXKk623q9AiBmKMkbpuSEjgo
+Content-Type: application/json
+
+{
+    "title": "second test blog",
+    "url": "test.com",
+    "likes": 110
+}
+
+### NO BEARER TOKEN
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+    "title": "second test blog",
+    "url": "test.com",
+    "likes": 110
 }
 
 ### POST INVALID ITEM
 POST http://localhost:3001/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlZmF1bHR1c2VyIiwiaWQiOiI1Zjk1NzdhMjQ1ZjNjNTNiNzkzZmMxNjUiLCJpYXQiOjE2MDM2MzQzNzJ9.X7zaGrAMAHRQDb6AKeeaXKk623q9AiBmKMkbpuSEjgo
 Content-Type: application/json
 
 {
@@ -16,10 +39,10 @@ Content-Type: application/json
 
 ### POST INVALID ITEM, MISSING PARAMS
 POST http://localhost:3001/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlZmF1bHR1c2VyIiwiaWQiOiI1Zjk1NzdhMjQ1ZjNjNTNiNzkzZmMxNjUiLCJpYXQiOjE2MDM2MzQzNzJ9.X7zaGrAMAHRQDb6AKeeaXKk623q9AiBmKMkbpuSEjgo
 Content-Type: application/json
 
 {
-    "title": "SF ENthusiasts",
     "author": "M. Night Shyamalan",
     "url": "r/streetfighter"
 }

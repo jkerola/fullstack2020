@@ -1,0 +1,36 @@
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "defaultuser",
+    "password": "password"
+}
+
+### WRONG PASSWORD
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "defaultuser",
+    "password": "12345"
+}
+
+### WRONG USERNAME
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "duser"
+}
+
+### MISSING PASSWORDW
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "defaultuser"
+}
+
+### MISSING BODY
+POST http://localhost:3001/api/login
+Content-Type: application/json

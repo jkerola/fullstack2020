@@ -1,5 +1,7 @@
 require('express-async-errors')
 const blogRouter = require('express').Router()
+const helper = require('../utils/user_helper')
+const jwt = require('jsonwebtoken')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
@@ -22,14 +24,26 @@ blogRouter.get('/:id', async (request, response) => { // GET SINGLE ITEM
 
 // POST ROUTES
 blogRouter.post('/', async (request, response) => { // POST NEW ITEM
+  const token = helper.getAuthorizationToken(request)
+  if (!token) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  // jwt requires specific error handling to function properly
+  const decodedToken = jwt.verify(token, process.env.SECRET, function (error, decoded) {
+    if (error) {
+      return response.status(400).json({ error: error.message })
+    } else {
+      return decoded
+    }
+  })
   const blog = new Blog(request.body)
-  const defaultUser = await User.findOne({ username: 'defaultuser' })
+  const user = await User.findById(decodedToken.id)
   if (!blog.author) {
-    blog.author = defaultUser.id
+    blog.author = user.id
   }
   const returnedBlog = await blog.save()
-  defaultUser.blogs = defaultUser.blogs.concat(returnedBlog.id)
-  await defaultUser.save()
+  user.blogs = user.blogs.concat(returnedBlog.id)
+  await user.save()
   response.status(201).json(returnedBlog.toJSON())
 })
 
