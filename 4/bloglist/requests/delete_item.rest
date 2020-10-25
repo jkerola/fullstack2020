@@ -1,0 +1,7 @@
+DELETE http://localhost:3001/api/blogs/5f957acc6c53ac3e64d0add9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlZmF1bHR1c2VyIiwiaWQiOiI1Zjk1NzdhMjQ1ZjNjNTNiNzkzZmMxNjUiLCJpYXQiOjE2MDM2NDAxODl9.cdIdELyMa76vFIUgRAdDwkmdpDZ5fFas2JEzBEx6Mt0
+### BAD AUTH
+DELETE http://localhost:3001/api/blogs/5f957acc6c53ac3e64d0add9
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWQiOiI1Zjk1OWNlYmQzNzY0NzU5ZDAxODRlY2IiLCJpYXQiOjE2MDM2NDA1OTB9.MIeDgaQ4TcePVoiLzi3NCeFsspSDtmEJ19qDfyDHZLg
+### NO AUTH
+DELETE http://localhost:3001/api/blogs/5f957acc6c53ac3e64d0add9

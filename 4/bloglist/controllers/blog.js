@@ -37,9 +37,7 @@ blogRouter.post('/', async (request, response) => { // POST NEW ITEM
   })
   const blog = new Blog(request.body)
   const user = await User.findById(decodedToken.id)
-  if (!blog.author) {
-    blog.author = user.id
-  }
+  blog.author = user.id
   const returnedBlog = await blog.save()
   user.blogs = user.blogs.concat(returnedBlog.id)
   await user.save()
@@ -48,11 +46,30 @@ blogRouter.post('/', async (request, response) => { // POST NEW ITEM
 
 // DELETE ROUTES
 blogRouter.delete('/:id', async (request, response) => { // DELETE SINGLE ITEM
-  const deletedNote = await Blog.findByIdAndRemove(request.params.id)
-  if (deletedNote) { // 202 if found, else 204
+  const token = request.token
+  if (!token) {
+    return response.status(401).json({ error: 'invalid or missing token' })
+  }
+  const blog = await Blog.findById(request.params.id)
+  if (!blog) {
+    return response.status(204).end()
+  }
+  const authorId = blog.author.toString()
+  if (!authorId) {
+    return response.status(404).json({ error: 'missing author' })
+  }
+  const decodedToken = jwt.verify(token, process.env.SECRET, (error, decoded) => {
+    if (error) {
+      return response.status(401).json({ error: error })
+    } else {
+      return decoded
+    }
+  })
+  if (decodedToken.id === authorId) {
+    await Blog.findByIdAndRemove(request.params.id)
     response.status(202).end()
   } else {
-    response.status(204).end()
+    return response.status(401).json({ error: 'no permission' })
   }
 })
 

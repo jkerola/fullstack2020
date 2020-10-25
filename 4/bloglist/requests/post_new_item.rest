@@ -1,11 +1,11 @@
 POST http://localhost:3001/api/blogs
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlZmF1bHR1c2VyIiwiaWQiOiI1Zjk1NzdhMjQ1ZjNjNTNiNzkzZmMxNjUiLCJpYXQiOjE2MDM2MzQzNzJ9.X7zaGrAMAHRQDb6AKeeaXKk623q9AiBmKMkbpuSEjgo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWQiOiI1Zjk1OWNlYmQzNzY0NzU5ZDAxODRlY2IiLCJpYXQiOjE2MDM2NDA1OTB9.MIeDgaQ4TcePVoiLzi3NCeFsspSDtmEJ19qDfyDHZLg
 Content-Type: application/json
 
 {
-    "title": "third test blog",
+    "title": "test blog",
     "url": "test.com",
-    "likes": 120
+    "likes": 1
 }
 
 ### INVALID TOKEN
