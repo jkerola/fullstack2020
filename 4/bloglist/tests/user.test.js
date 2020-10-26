@@ -6,6 +6,7 @@ const app = require('../app')
 
 const api = supertest(app)
 const url = '/api/users'
+const login = '/api/login'
 
 const User = require('../models/user')
 describe('general', () => {
@@ -22,14 +23,14 @@ describe('general', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
   })
-  describe('get', () => {
+  describe('get all', () => {
     test('all users', async () => {
       const response = await api.get(url)
       expect(response.status).toBe(200)
       expect(response.body.length).toBe(1)
     })
   })
-  describe('post', () => {
+  describe('creation', () => {
     describe('proper users', () => {
       test('creating a new user', async () => { // check new user is properly created
         const user = helper.initialUsers[0]
@@ -93,6 +94,43 @@ describe('general', () => {
         const users = await helper.getUsers()
         expect(users.length).toBe(1) // if invalid added, length > 1
       })
+    })
+  })
+  describe('login', () => {
+    test('login is succesfull', async () => {
+      const user = {
+        username: helper.userItem.username,
+        password: helper.userItem.password
+      }
+      await api
+        .post(login)
+        .send(user)
+        .expect(200)
+    })
+    test('wrong password error', async () => {
+      const user = {
+        username: helper.userItem.username,
+        password: '12345'
+      }
+      await api
+        .post(login)
+        .send(user)
+        .expect(401)
+    })
+    test('invalid username error', async () => {
+      const user = {
+        username: 'loginMixup',
+        password: helper.userItem.password
+      }
+      await api
+        .post(login)
+        .send(user)
+        .expect(401)
+    })
+    test('empty body error', async () => {
+      await api
+        .post(login)
+        .expect(400)
     })
   })
 })

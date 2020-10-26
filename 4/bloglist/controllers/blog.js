@@ -74,6 +74,7 @@ blogRouter.delete('/:id', async (request, response) => { // DELETE SINGLE ITEM
 })
 
 // PUT ROUTES
+// exercises did not specify for these to use authentication
 blogRouter.put('/:id', async (request, response) => { // UPDATE SINGLE ITEM
   const body = request.body
   const newBlog = {
