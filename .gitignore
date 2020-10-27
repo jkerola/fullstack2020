@@ -1,1 +1,4 @@
 *.material
+.hog
+exclude-patterns
+.secrets.baseline
