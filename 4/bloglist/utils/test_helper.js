@@ -42,31 +42,37 @@ const initialBlogs = [
   {
     title: 'Emperor Penguins in Madagascar',
     url: 'istanpenguinz0.blogspot.com',
+    author: 'National Geographic',
     likes: 0
   },
   {
     title: 'World Warrior Weekly',
     url: 'clone-hunter.blogspot.com',
+    author: 'M. Bison',
     likes: 1
   },
   {
     title: 'Paint Me, Austin',
     url: 'creedthoughts.gov/creedthoughts',
+    author: 'A. Powers',
     likes: 201
   },
   {
     title: 'Birdwatching Siberia',
     url: 'russian-writers.blogspot.com',
+    author: 'Tolstoy',
     likes: 202
   }
 ]
 const blogItem = {
   title: 'Test Blog Item',
+  author: 'Test Author',
   url: 'None',
   likes: 1
 }
 const blogWithNoLikes = {
   title: 'Blog Missing Likes',
+  author: 'Author missing likes',
   url: 'None'
 }
 const blogMissingAttributes = {

@@ -1,17 +1,18 @@
 POST http://localhost:3001/api/blogs
-// TOKEN HERE
+Authorization: Bearer {{$dotenv TOKEN}}
 Content-Type: application/json
 
 {
-    "title": "test blog",
-    "url": "test.com",
-    "likes": 1
+    "title": "Garlic and Pepper",
+    "url": "google.com",
+    "author": "Andre Spiceman",
+    "likes": 305
 }
 
 ### INVALID TOKEN
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-// TOKEN HERE
+Authorization: Bearer {{$dotenv TOKEN}}
 
 {
     "title": "second test blog",
@@ -31,7 +32,7 @@ Content-Type: application/json
 
 ### POST INVALID ITEM
 POST http://localhost:3001/api/blogs
-// token here
+Authorization: Bearer {{$dotenv TOKEN}}
 Content-Type: application/json
 
 {
@@ -39,7 +40,7 @@ Content-Type: application/json
 
 ### POST INVALID ITEM, MISSING PARAMS
 POST http://localhost:3001/api/blogs
-// token here
+Authorization: Bearer {{$dotenv TOKEN}}
 Content-Type: application/json
 
 {

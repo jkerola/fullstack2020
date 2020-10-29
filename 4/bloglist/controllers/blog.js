@@ -8,7 +8,7 @@ const User = require('../models/user')
 blogRouter.get('/', async (request, response) => { // GET ALL ITEMS
   const blogs = await Blog
     .find({})
-    .populate('author', { username: 1, name: 1 })
+    .populate('user', { username: 1, name: 1 })
   response.json(blogs.map(blog => blog.toJSON()))
 })
 
@@ -37,7 +37,7 @@ blogRouter.post('/', async (request, response) => { // POST NEW ITEM
   })
   const blog = new Blog(request.body)
   const user = await User.findById(decodedToken.id)
-  blog.author = user.id
+  blog.user = user.id
   const returnedBlog = await blog.save()
   user.blogs = user.blogs.concat(returnedBlog.id)
   await user.save()
@@ -54,8 +54,8 @@ blogRouter.delete('/:id', async (request, response) => { // DELETE SINGLE ITEM
   if (!blog) {
     return response.status(204).end()
   }
-  const authorId = blog.author.toString()
-  if (!authorId) {
+  const userId = blog.user.toString()
+  if (!userId) {
     return response.status(404).json({ error: 'missing author' })
   }
   const decodedToken = jwt.verify(token, process.env.SECRET, (error, decoded) => {
@@ -65,7 +65,7 @@ blogRouter.delete('/:id', async (request, response) => { // DELETE SINGLE ITEM
       return decoded
     }
   })
-  if (decodedToken.id === authorId) {
+  if (decodedToken.id === userId) {
     await Blog.findByIdAndRemove(request.params.id)
     response.status(202).end()
   } else {

@@ -21,9 +21,9 @@ async function getLoginToken () {
 // https://fullstackopen.com/osa4/backendin_testaaminen#testin-before-each-metodin-optimointi
 beforeEach(async () => {
   await Blog.deleteMany({})
-  const author = await User.findOne({ username: helper.userItem.username })
+  const user = await User.findOne({ username: helper.userItem.username })
   const blogObjects = helper.initialBlogs
-    .map(blog => new Blog({ ...blog, author: author.id })) // list of BLOG OBJECTS
+    .map(blog => new Blog({ ...blog, user: user.id })) // list of BLOG OBJECTS
   const promiseArray = blogObjects.map(blog => blog.save()) // list of PROMISES
   await Promise.all(promiseArray) // tries to execute callbacks simultaneously, returns list of responses
 })
