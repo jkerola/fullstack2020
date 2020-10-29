@@ -10,6 +10,9 @@ const LoginForm = (controls) => {
     }
     try {
       const user = await loginService.loginUser(userInfo)
+      window.localStorage.setItem(
+        'loggedBlogAppUser', JSON.stringify(user)
+      )
       controls.setUser(user)
       controls.setUsername('')
       controls.setPassword('')
