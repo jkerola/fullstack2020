@@ -3,7 +3,7 @@ import React from 'react'
 
 const Blog = ({ blog }) => (
   <div>
-    {blog.title} by {blog.author.name} aka &quot;{blog.author.username}&quot;
+    {blog.title} by {blog.author}
   </div>
 )
 

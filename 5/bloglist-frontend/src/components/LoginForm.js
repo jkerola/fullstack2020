@@ -14,14 +14,16 @@ const LoginForm = (controls) => {
         'loggedBlogAppUser', JSON.stringify(user)
       )
       controls.setUser(user)
-      controls.setUsername('')
-      controls.setPassword('')
       controls.setSystemMessage({ style: 'success', message: 'Login succesful' })
-      controls.clearSystemMessage()
     } catch (exception) {
-      controls.setSystemMessage({ style: 'error', message: 'Invalid credentials' })
-      controls.clearSystemMessage()
+      let message = 'Invalid Credentials'
+      if (exception.message.endsWith('400')) {
+        message = 'Missing Credentials'
+      }
+      controls.setSystemMessage({ style: 'error', message })
     }
+    controls.clearSystemMessage()
+    controls.clearCredentials()
   }
   return (
     <form onSubmit={attemptLogin}>
