@@ -1,10 +1,11 @@
 import './App.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import BlogCollection from './components/BlogCollection'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import LoginStatus from './components/LoginStatus'
 import blogService from './services/blogs'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [systemMessage, setSystemMessage] = useState({ style: 'success', message: null })
@@ -15,6 +16,7 @@ const App = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const blogFormRef = useRef()
   const blogControls = {
     title,
     setTitle,
@@ -53,6 +55,7 @@ const App = () => {
   }, [])
   function createNewBlog () {
     event.preventDefault()
+    blogFormRef.current.toggleVisibility()
     const blog = {
       title,
       author,
@@ -101,7 +104,8 @@ const App = () => {
       <div>
         {user === null && LoginForm(loginControls)}
         {user !== null && LoginStatus(userControls)}
-        {user !== null && BlogForm(blogControls)}<br />
+        {user !== null && <Togglable ref={blogFormRef} buttonLabel='new blog'>{BlogForm(blogControls)}</Togglable>}
+        <br />
         {user !== null && BlogCollection(blogs)}
       </div>
     </div>

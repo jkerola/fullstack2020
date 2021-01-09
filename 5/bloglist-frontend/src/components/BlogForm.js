@@ -12,7 +12,7 @@ const BlogForm = (controls) => {
         URL: <input type='text' name='URL'
           value={controls.url} onChange={({ target }) => controls.setUrl(target.value)} /><br />
       </div>
-      <button type='submit'>Submit</button>
+      <button type='submit'>submit</button>
     </form>
   )
 }
