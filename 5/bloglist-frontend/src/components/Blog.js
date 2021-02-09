@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 
-const Blog = ({ blog, likeBlogItem }) => {
+const Blog = ({ blog, likeBlogItem, deleteBlogItem, currentUser }) => {
   const [visible, setVisible] = useState(false)
   const hideWhenVisible = {
     display: visible ? 'none' : '',
@@ -17,6 +17,14 @@ const Blog = ({ blog, likeBlogItem }) => {
   const toggleVisibility = () => {
     setVisible(!visible)
   }
+  function isUser (user, blogItem) {
+    if (user.username === blogItem.user.username) {
+      return true
+    } else {
+      return false
+    }
+  }
+  const showIfUser = { display: isUser(currentUser, blog) ? '' : 'none' }
   return (
     <div>
       <div style={hideWhenVisible} onClick={toggleVisibility}>
@@ -27,6 +35,9 @@ const Blog = ({ blog, likeBlogItem }) => {
         <br />{blog.url}
         <br />likes: {blog.likes} <button onClick={() => likeBlogItem(blog)}>like</button>
         <br />added by {blog.user.username}
+        <div style={showIfUser}>
+          <br /><button onClick={() => deleteBlogItem(blog)}>delete</button>
+        </div>
       </div>
     </div>
   )

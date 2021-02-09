@@ -28,7 +28,9 @@ const App = () => {
   }
   const blogItemControls = {
     blogs,
-    likeBlogItem
+    likeBlogItem,
+    deleteBlogItem,
+    user
   }
   const userControls = {
     user,
@@ -91,6 +93,20 @@ const App = () => {
         setSystemMessage({ style: 'error', message: 'Error submitting like...' })
       })
     clearSystemMessage()
+  }
+  function deleteBlogItem (blogItem) {
+    event.preventDefault()
+    if (window.confirm(`Are you sure you wish to delete blog item: ${blogItem.title}?`)) {
+      blogService.deleteBlog(user.token, blogItem)
+        .then(() => {
+          setSystemMessage({ style: 'success', message: 'Blog deleted succesfully' })
+          blogService.getAll().then(blogs => setBlogs(blogs))
+        })
+        .catch(() => {
+          setSystemMessage({ style: 'error', message: 'Error deleting blog...' })
+        })
+      clearSystemMessage()
+    }
   }
   function clearBlogForm () {
     setTitle('')
