@@ -26,6 +26,10 @@ const App = () => {
     setUrl,
     createNewBlog
   }
+  const blogItemControls = {
+    blogs,
+    likeBlogItem
+  }
   const userControls = {
     user,
     userLogout
@@ -72,6 +76,22 @@ const App = () => {
       })
     clearSystemMessage()
   }
+  function likeBlogItem (blogItem) {
+    event.preventDefault()
+    console.log(blogItem)
+    const modBlogItem = blogItem
+    modBlogItem.user = modBlogItem.user.id
+    modBlogItem.likes = blogItem.likes + 1
+    blogService.likeBlog(user.token, modBlogItem)
+      .then(() => {
+        setSystemMessage({ style: 'success', message: 'Blog successfully liked' })
+        blogService.getAll().then(blogs => setBlogs(blogs))
+      })
+      .catch(() => {
+        setSystemMessage({ style: 'error', message: 'Error submitting like...' })
+      })
+    clearSystemMessage()
+  }
   function clearBlogForm () {
     setTitle('')
     setAuthor('')
@@ -106,7 +126,7 @@ const App = () => {
         {user !== null && LoginStatus(userControls)}
         {user !== null && <Togglable ref={blogFormRef} buttonLabel='new blog'>{BlogForm(blogControls)}</Togglable>}
         <br />
-        {user !== null && BlogCollection(blogs)}
+        {user !== null && BlogCollection(blogItemControls)}
       </div>
     </div>
   )

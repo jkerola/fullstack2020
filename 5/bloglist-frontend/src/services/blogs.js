@@ -10,8 +10,16 @@ const createBlog = async (token, blogItem) => {
   const config = {
     headers: { Authorization: properToken }
   }
-  console.log(config)
   const response = await axios.post(baseUrl, blogItem, config)
   return response.data
 }
-export default { getAll, createBlog }
+const likeBlog = async (token, blogItem) => {
+  const properToken = `Bearer ${token}`
+  const config = {
+    headers: { Authorization: properToken }
+  }
+  const blogURL = baseUrl + '/' + blogItem.id
+  const response = await axios.put(blogURL, blogItem, config)
+  return response.data
+}
+export default { getAll, createBlog, likeBlog }

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, likeBlogItem }) => {
   const [visible, setVisible] = useState(false)
   const hideWhenVisible = {
     display: visible ? 'none' : '',
@@ -17,7 +17,6 @@ const Blog = ({ blog }) => {
   const toggleVisibility = () => {
     setVisible(!visible)
   }
-
   return (
     <div>
       <div style={hideWhenVisible} onClick={toggleVisibility}>
@@ -26,8 +25,8 @@ const Blog = ({ blog }) => {
       <div style={showWhenVisible}>
         {blog.title} by {blog.author} <button onClick={toggleVisibility}>hide</button>
         <br />{blog.url}
-        <br />likes: {blog.likes} <button>like</button>
-        <br />added by {blog.user.name}
+        <br />likes: {blog.likes} <button onClick={() => likeBlogItem(blog)}>like</button>
+        <br />added by {blog.user.username}
       </div>
     </div>
   )
