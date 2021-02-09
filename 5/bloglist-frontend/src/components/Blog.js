@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const Blog = ({ blog, likeBlogItem, deleteBlogItem, currentUser }) => {
   const [visible, setVisible] = useState(false)
@@ -42,4 +42,12 @@ const Blog = ({ blog, likeBlogItem, deleteBlogItem, currentUser }) => {
     </div>
   )
 }
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
+  likeBlogItem: PropTypes.func.isRequired,
+  deleteBlogItem: PropTypes.func.isRequired
+}
+
 export default Blog
