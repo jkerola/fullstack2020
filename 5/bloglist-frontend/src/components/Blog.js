@@ -26,11 +26,11 @@ const Blog = ({ blog, likeBlogItem, deleteBlogItem, currentUser }) => {
   }
   const showIfUser = { display: isUser(currentUser, blog) ? '' : 'none' }
   return (
-    <div>
-      <div style={hideWhenVisible} onClick={toggleVisibility}>
+    <div className='blogDiv'>
+      <div style={hideWhenVisible} className='togglableText' onClick={toggleVisibility}>
         {blog.title} by {blog.author}
       </div>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='togglableContent'>
         {blog.title} by {blog.author} <button onClick={toggleVisibility}>hide</button>
         <br />{blog.url}
         <br />likes: {blog.likes} <button onClick={() => likeBlogItem(blog)}>like</button>

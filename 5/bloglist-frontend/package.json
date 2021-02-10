@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "prop-types": "^15.7.2",
@@ -39,6 +37,8 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
     "eslint": "^7.12.1",
     "eslint-config-standard": "^15.0.0",
     "eslint-plugin-import": "^2.22.1",
