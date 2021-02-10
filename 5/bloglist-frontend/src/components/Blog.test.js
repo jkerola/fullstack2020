@@ -29,7 +29,6 @@ describe('<Blog />', () => {
         deleteBlogItem={deleteBlogItem}
       />
     )
-    // blogComponent.debug()
   })
   test('renders content correctly', () => {
     expect(blogComponent.container).toHaveTextContent(
