@@ -29,6 +29,7 @@ const LoginForm = (controls) => {
     <form onSubmit={attemptLogin}>
       <div>
         Username <input
+          id='usernameInput'
           type='text'
           name='Username'
           value={controls.username}
@@ -37,13 +38,14 @@ const LoginForm = (controls) => {
       </div>
       <div>
         Password <input
+          id='passwordInput'
           type='password'
           name='Password'
           value={controls.password}
           onChange={({ target }) => controls.setPassword(target.value)}
         />
       </div>
-      <button type='submit'>login</button>
+      <button id='loginButton' type='submit'>login</button>
     </form>
   )
 }

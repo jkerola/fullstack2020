@@ -8,6 +8,7 @@ import blogService from './services/blogs'
 import Togglable from './components/Togglable'
 
 const App = () => {
+  // hooks
   const [systemMessage, setSystemMessage] = useState({ style: 'success', message: null })
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
@@ -17,6 +18,8 @@ const App = () => {
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
   const blogFormRef = useRef()
+  // collections of hooks to ease passing props
+  // creating new blog posts
   const blogControls = {
     title,
     setTitle,
@@ -26,16 +29,19 @@ const App = () => {
     setUrl,
     createNewBlog
   }
+  // modifying single blog posts
   const blogItemControls = {
     blogs,
     likeBlogItem,
     deleteBlogItem,
     user
   }
+  // user related controls
   const userControls = {
     user,
     userLogout
   }
+  // login functionality controls
   const loginControls = {
     username,
     setUsername,
@@ -47,6 +53,8 @@ const App = () => {
     clearSystemMessage,
     clearCredentials
   }
+  // useEffect hooks
+  // check if user has already logged in
   useEffect(() => {
     const userJSON = window.localStorage.getItem('loggedBlogAppUser')
     if (userJSON) {
@@ -54,12 +62,16 @@ const App = () => {
       setUser(user)
     }
   }, [])
+  // fetch blogs from database
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs)
     )
   }, [])
+  // functions
   function createNewBlog () {
+    // called by BlogForm component, creates a blogItem object
+    // and posts it to backend for creation
     event.preventDefault()
     blogFormRef.current.toggleVisibility()
     const blog = {
@@ -79,6 +91,8 @@ const App = () => {
     clearSystemMessage()
   }
   function likeBlogItem (blogItem) {
+    // called by button in detailed view, sends a put request to
+    // backend, increasing likes value of the blogItem by 1
     event.preventDefault()
     console.log(blogItem)
     const modBlogItem = blogItem
@@ -95,6 +109,8 @@ const App = () => {
     clearSystemMessage()
   }
   function deleteBlogItem (blogItem) {
+    // called by button in detailed view, sends a delete request to backend,
+    // removing the blogItem from database
     event.preventDefault()
     if (window.confirm(`Are you sure you wish to delete blog item: ${blogItem.title}?`)) {
       blogService.deleteBlog(user.token, blogItem)
@@ -109,20 +125,25 @@ const App = () => {
     }
   }
   function clearBlogForm () {
+    // helper function, clears BlogForm component input fields
     setTitle('')
     setAuthor('')
     setUrl('')
   }
   function clearCredentials () {
+    // helper function, clears LoginForm component input fields
     setUsername('')
     setPassword('')
   }
   function userLogout () {
+    // helper function, removes userdata from browser memory
     window.localStorage.removeItem('loggedBlogAppUser')
     setSystemMessage({ style: 'success', message: 'Logged out succesfully' })
     clearSystemMessage()
   }
   function clearSystemMessage () {
+    // helper function, clears notification popup (login success, fail etc) after
+    // four seconds have passed
     setTimeout(() => {
       const styleObject = { style: 'error', message: null }
       setSystemMessage(styleObject)
