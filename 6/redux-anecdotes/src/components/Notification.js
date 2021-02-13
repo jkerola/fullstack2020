@@ -1,8 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
-const Notification = ({ content }) => {
+const Notification = () => {
+  const content = useSelector(state => state.notification)
   const style = {
+    // hidden from view if no content to display
+    display: content === null ? 'none' : '',
     border: 'solid',
     padding: 10,
     borderWidth: 1
@@ -12,10 +15,6 @@ const Notification = ({ content }) => {
       {content}
     </div>
   )
-}
-
-Notification.propTypes = {
-  content: PropTypes.string.isRequired
 }
 
 export default Notification

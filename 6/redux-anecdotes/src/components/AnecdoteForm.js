@@ -6,6 +6,7 @@ const AnecdoteForm = () => {
   const dispatch = useDispatch()
   const handleSubmit = () => {
     event.preventDefault()
+    // access input value with name
     const anecdote = event.target.anecdoteInput.value
     event.target.anecdoteInput.value = ''
     dispatch(createAnecdote(anecdote))
