@@ -1,15 +1,15 @@
 import React from 'react'
 import { createAnecdote } from '../reducers/anecdoteReducer'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-const AnecdoteForm = () => {
-  const dispatch = useDispatch()
-  const handleSubmit = () => {
+const AnecdoteForm = (props) => {
+  const handleSubmit = async () => {
     event.preventDefault()
     // access input value with name
     const anecdote = event.target.anecdoteInput.value
     event.target.anecdoteInput.value = ''
-    dispatch(createAnecdote(anecdote))
+    props.createAnecdote(anecdote)
   }
   return (
     <div>
@@ -24,4 +24,9 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+AnecdoteForm.propTypes = {
+  createAnecdote: PropTypes.func.isRequired
+}
+
+const ConnectedAnecdoteForm = connect(null, { createAnecdote })(AnecdoteForm)
+export default ConnectedAnecdoteForm

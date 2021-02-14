@@ -9,7 +9,7 @@ Coursework for the FullstackOpen2020 course at [fullstackopen.com](https://www.f
 - [x] Part 3 Programming a server with NodeJS and Express
 - [x] Part 4 Testing Express servers, user administration
 - [x] Part 5 Testing React apps
-- [ ] Part 6 State Management with Redux
+- [x] Part 6 State Management with Redux
 - [ ] Part 7 React router, custom hooks, styling app with CSS and Webpack
 - [ ] Part 8 GraphQL
 - [ ] Part 9 TypeScript

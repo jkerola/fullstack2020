@@ -1,7 +1,7 @@
 export const setFilter = (content) => {
   return {
     type: 'FILTER',
-    content: content
+    content
   }
 }
 
